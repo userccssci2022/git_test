@@ -1,0 +1,10 @@
+{
+  "name": "9UPPER 瞎掰王・科學版",
+  "short_name": "瞎掰王",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f5f1ff",
+  "theme_color": "#6c4cff",
+  "lang": "zh-Hant",
+  "description": "科學冷知識瞎掰派對遊戲"
+}
