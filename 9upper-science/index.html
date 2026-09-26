@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<meta name="theme-color" content="#6c4cff" />
+<link rel="manifest" href="manifest.webmanifest" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<meta name="apple-mobile-web-app-title" content="瞎掰王" />
+<title>9UPPER 瞎掰王・科學版</title>
+<style>
+:root{
+  --bg:#f5f1ff; --card:#ffffff; --ink:#1d1830; --muted:#756f86;
+  --accent:#6c4cff; --accent2:#ffcc4d; --line:#e8e1f7; --danger:#c63e53;
+  --good:#18865f; --shadow:0 14px 36px rgba(63,43,115,.14);
+}
+*{box-sizing:border-box} html,body{margin:0;min-height:100%;font-family:-apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;color:var(--ink);background:radial-gradient(circle at 20% 0%,#fff7dc 0,transparent 28%),linear-gradient(160deg,#f7f3ff,#eee8ff 70%,#f9f5ff)}
+body{padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+.app{max-width:760px;margin:auto;padding:18px 16px 34px}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
+.brand h1{font-size:clamp(24px,5vw,34px);margin:0;font-weight:950;letter-spacing:-.04em}.brand p{margin:4px 0 0;color:var(--muted);font-size:14px}
+.pill{display:inline-flex;align-items:center;gap:6px;padding:7px 11px;border-radius:999px;background:#fff;border:1px solid var(--line);font-weight:750;font-size:13px}
+nav{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0}
+nav button{border:0;background:rgba(255,255,255,.7);padding:11px 8px;border-radius:14px;font-weight:850;color:var(--muted);box-shadow:inset 0 0 0 1px var(--line)}
+nav button.active{background:var(--ink);color:#fff;box-shadow:none}
+.panel{display:none}.panel.active{display:block}
+.card{background:rgba(255,255,255,.94);border:1px solid rgba(255,255,255,.9);border-radius:24px;box-shadow:var(--shadow)}
+.game-card{min-height:470px;padding:22px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}
+.game-card:after{content:"";position:absolute;width:190px;height:190px;border-radius:50%;background:rgba(108,76,255,.08);right:-70px;top:-70px;pointer-events:none}
+.meta{display:flex;gap:8px;flex-wrap:wrap}.chip{font-size:13px;font-weight:800;padding:7px 10px;border-radius:999px;background:#f3efff;color:#5536ce}.chip.yellow{background:#fff4c4;color:#7c5b00}.chip.gray{background:#f2f0f5;color:#645d70}
+.question-wrap{text-align:center;padding:34px 4px 20px}.eyebrow{font-size:14px;font-weight:850;color:var(--muted);letter-spacing:.08em}.question{font-size:clamp(38px,10vw,64px);font-weight:1000;letter-spacing:-.06em;margin:14px 0;line-height:1.05}
+.hint{font-size:14px;color:var(--muted);margin-top:8px}
+.answer{display:none;text-align:left;background:#f8f5ff;border:1px dashed #cfc1ff;border-radius:18px;padding:16px 17px;line-height:1.65;font-size:17px}.answer.show{display:block}.answer b{color:#4f31ce}
+.controls{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}.controls .wide{grid-column:1/-1}
+.btn{border:0;border-radius:16px;padding:14px 16px;font-weight:900}.btn.primary{background:var(--accent);color:white}.btn.dark{background:var(--ink);color:white}.btn.soft{background:#f0ebff;color:#4e35b9}.btn.yellow{background:var(--accent2);color:#3c2d00}.btn.ghost{background:white;color:var(--ink);border:1px solid var(--line)}.btn.danger{background:#fff0f2;color:var(--danger)}
+.status{display:flex;justify-content:space-between;gap:8px;align-items:center;color:var(--muted);font-size:13px;margin:10px 2px 0}
+.section-card{padding:20px;margin-bottom:12px}.section-card h2{margin:0 0 6px;font-size:22px}.section-card p{margin:0 0 16px;color:var(--muted);line-height:1.5}
+label{display:block;font-weight:850;font-size:14px;margin:12px 0 7px}.field,select,textarea{width:100%;border:1px solid var(--line);background:#fff;border-radius:14px;padding:12px 13px;color:var(--ink);outline:none}.field:focus,select:focus,textarea:focus{border-color:#9b86ff;box-shadow:0 0 0 3px rgba(108,76,255,.1)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.checkgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.check{display:flex;gap:8px;align-items:center;background:#faf8ff;border:1px solid var(--line);border-radius:12px;padding:10px;font-size:14px}.check input{accent-color:var(--accent)}
+.bank-preview{margin-top:14px;display:grid;gap:8px;max-height:340px;overflow:auto}.bank-item{padding:12px;border:1px solid var(--line);border-radius:14px;background:#fff;display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.bank-item strong{display:block}.bank-item small{color:var(--muted)}
+.iconbtn{border:0;background:#fff0f2;color:var(--danger);border-radius:10px;padding:7px 9px;font-weight:900}
+.row{display:flex;gap:8px;flex-wrap:wrap}.row .btn{flex:1;min-width:130px}
+.empty{text-align:center;padding:30px 10px;color:var(--muted)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);opacity:0;background:#1d1830;color:white;padding:11px 15px;border-radius:999px;font-weight:750;transition:.2s;z-index:20;pointer-events:none}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.footer-note{text-align:center;color:var(--muted);font-size:12px;margin-top:16px}
+@media(max-width:560px){.app{padding:12px 12px 28px}.game-card{min-height:520px;padding:18px}.grid2{grid-template-columns:1fr}.question{font-size:48px}.checkgrid{grid-template-columns:1fr 1fr}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="app">
+<header>
+  <div class="brand"><h1>瞎掰王 🧪</h1><p>科學冷知識・離線單機版</p></div>
+  <span class="pill" id="bankCount">題庫 0</span>
+</header>
+<nav>
+  <button class="active" data-tab="play">🎮 玩遊戲</button>
+  <button data-tab="factory">🧪 題庫工場</button>
+  <button data-tab="manage">✍️ 自訂題目</button>
+</nav>
+
+<section class="panel active" id="play">
+  <div class="card game-card">
+    <div>
+      <div class="meta"><span class="chip" id="categoryChip">科學</span><span class="chip yellow" id="difficultyChip">難度 ★★</span><span class="chip gray" id="roundChip">第 1 題</span></div>
+      <div class="question-wrap">
+        <div class="eyebrow">請瞎掰人開始作故仔</div>
+        <div class="question" id="questionText">反泡泡</div>
+        <div class="hint">主持人準備好先揭曉答案 👇</div>
+      </div>
+      <div class="answer" id="answerBox"><b>真正答案：</b><span id="answerText"></span></div>
+    </div>
+    <div>
+      <div class="controls">
+        <button class="btn yellow wide" id="revealBtn">👀 揭曉真相</button>
+        <button class="btn ghost" id="skipBtn">跳過</button>
+        <button class="btn primary" id="nextBtn">下一題 →</button>
+      </div>
+      <div class="status"><span id="queueStatus">未建立題組</span><span id="seenStatus">已玩 0 題</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="panel" id="factory">
+  <div class="card section-card">
+    <h2>題庫工場</h2><p>由內置＋你自訂嘅題目抽出一組不重複題目。適合開局前快速整 5 / 10 / 20 題。</p>
+    <label>題目數量</label>
+    <select id="amount"><option>5</option><option selected>10</option><option>15</option><option>20</option><option>30</option></select>
+    <label>難度</label>
+    <select id="difficultyFilter"><option value="all">全部難度</option><option value="1">★ 入門</option><option value="2">★★ 正常</option><option value="3">★★★ 地獄</option></select>
+    <label>類別（可複選）</label>
+    <div class="checkgrid" id="categoryChecks"></div>
+    <div class="row" style="margin-top:15px"><button class="btn dark" id="generateBtn">🎲 生成題組並開始</button><button class="btn soft" id="previewBtn">預覽抽題</button></div>
+    <div class="bank-preview" id="previewList"></div>
+  </div>
+</section>
+
+<section class="panel" id="manage">
+  <div class="card section-card">
+    <h2>新增自訂題目</h2><p>全部會儲存在你瀏覽器本機。題目最好係「個名似識，但正常人講唔準」嗰種。</p>
+    <label>題目</label><input class="field" id="customQ" placeholder="例如：火山雷暴" />
+    <div class="grid2">
+      <div><label>類別</label><input class="field" id="customCat" placeholder="例如：地球科學" /></div>
+      <div><label>難度</label><select id="customDiff"><option value="1">★</option><option value="2" selected>★★</option><option value="3">★★★</option></select></div>
+    </div>
+    <label>真正答案</label><textarea id="customA" rows="4" placeholder="用一兩句講清楚真正意思"></textarea>
+    <button class="btn primary" id="addBtn" style="width:100%;margin-top:12px">＋ 加入題庫</button>
+  </div>
+  <div class="card section-card">
+    <h2>題庫管理</h2><p>可匯出 JSON 備份或傳畀朋友；匯入時會自動合併並去除完全重複題目。</p>
+    <div class="row"><button class="btn soft" id="exportBtn">⬇️ 匯出 JSON</button><button class="btn ghost" id="importBtn">⬆️ 匯入 JSON</button><button class="btn danger" id="resetBtn">重設自訂題庫</button></div>
+    <input type="file" id="fileInput" accept="application/json" hidden />
+    <div class="bank-preview" id="customList"></div>
+  </div>
+</section>
+<div id="storageNotice" class="footer-note">單檔 HTML・毋須安裝・題庫存在本機</div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+window.addEventListener('error',function(e){try{var t=document.getElementById('toast');if(t){t.textContent='程式錯誤：'+(e.message||'未知錯誤');t.classList.add('show')}}catch(_){} });
+const BUILTIN = [
+ {q:"反泡泡",cat:"物理學",d:2,a:"普通泡泡係空氣被液體包住；反泡泡剛好相反，係液滴外圍包住一層極薄空氣，再浸喺另一種液體入面。"},
+ {q:"水錘作用",cat:"物理學",d:2,a:"流動中嘅液體突然被截停時會產生壓力波，所以水管可能出現一下重擊聲、震動，甚至受損。"},
+ {q:"空穴現象",cat:"物理學",d:2,a:"液體局部壓力跌得太低時會形成微小蒸氣泡；氣泡之後猛烈塌陷，可侵蝕螺旋槳、泵等表面。"},
+ {q:"卡門渦街",cat:"流體力學",d:3,a:"流體繞過柱狀物時，後方可能左右交替產生一列規律渦旋，形成像兩排交錯旋渦嘅尾流。"},
+ {q:"駐波",cat:"物理學",d:1,a:"兩個方向相反、頻率相同嘅波互相疊加後，會形成某些位置幾乎不動、某些位置振幅最大嘅固定波形。"},
+ {q:"超冷卻",cat:"物理學",d:2,a:"液體被冷卻到低過正常凝固點仍保持液態；受到擾動或有成核點時，可能突然快速結冰。"},
+ {q:"摩擦發光",cat:"物理學",d:2,a:"某些晶體或材料被摩擦、壓碎或撕裂時會放出可見光，例如部分糖晶體或膠帶都可出現。"},
+ {q:"聲致發光",cat:"物理學",d:3,a:"液體入面嘅微小氣泡受到強聲波驅動後快速收縮，可以在極短瞬間發出微弱閃光。"},
+ {q:"群聚感應",cat:"微生物學",d:2,a:"細菌會釋放並偵測化學訊號，估計附近同伴數量；達到一定密度後就會集體改變行為，例如形成生物膜。"},
+ {q:"趨觸性",cat:"植物學",d:2,a:"植物因接觸刺激而改變生長方向；例如藤蔓碰到支架後會彎曲並纏住支架。"},
+ {q:"頂端優勢",cat:"植物學",d:2,a:"植物主莖頂端會透過激素抑制側芽生長；剪走頂芽後，側枝往往會長得更旺。"},
+ {q:"向重性",cat:"植物學",d:1,a:"植物感應重力而定向生長；根通常順重力方向生長，莖則多數向相反方向生長。"},
+ {q:"化學趨性",cat:"生物學",d:2,a:"細胞或微生物會根據化學物質濃度梯度移動，例如免疫細胞被感染位置釋出嘅訊號吸引過去。"},
+ {q:"自切",cat:"動物學",d:2,a:"某些動物遇到危險時會主動甩走身體一部分逃生，例如壁虎甩尾；部分物種之後可以再生。"},
+ {q:"孤雌生殖",cat:"動物學",d:2,a:"雌性個體嘅卵不經受精仍可發育成後代，部分昆蟲、爬行類及其他動物都可出現。"},
+ {q:"遲滯發育",cat:"動物學",d:3,a:"受精後嘅胚胎暫時停止或延遲著床／發育，令出生時間配合較有利嘅季節或環境。"},
+ {q:"潮汐鎖定",cat:"天文學",d:2,a:"一個天體自轉週期同繞另一個天體公轉週期同步，因此長期以同一面朝向對方；月球對地球就近似如此。"},
+ {q:"黃道光",cat:"天文學",d:2,a:"日出前或日落後天空沿黃道出現嘅淡淡三角形光帶，主要來自太陽光被行星際塵埃散射。"},
+ {q:"日冕洞",cat:"天文學",d:2,a:"太陽日冕上一啲溫度和密度較低、磁力線向外開放嘅區域，常係高速太陽風來源。"},
+ {q:"星震",cat:"天文學",d:2,a:"恆星內部振動令亮度或表面產生細微週期變化；科學家可利用呢啲振動研究恆星內部結構。"},
+ {q:"引力透鏡",cat:"天文學",d:2,a:"巨大質量令時空彎曲，令後方天體發出嘅光路被扭曲、放大，甚至形成多重影像或光環。"},
+ {q:"凌日",cat:"天文學",d:1,a:"較近嘅天體從觀察者角度經過較遠天體前方，例如行星由恆星表面前面經過，令亮度短暫下降。"},
+ {q:"睡眠紡錘波",cat:"腦科學",d:2,a:"非快速眼動睡眠期間出現嘅短暫快速腦電活動，形狀似紡錘，與睡眠穩定及記憶處理有關。"},
+ {q:"盲視",cat:"腦科學",d:3,a:"部分視覺皮層受損者主觀上話自己睇唔到，但仍可在無意識下對物體位置或移動方向作出高於隨機嘅判斷。"},
+ {q:"聯覺",cat:"腦科學",d:1,a:"一種感官或概念會自動觸發另一種穩定感受，例如見到某個字母就固定感覺到某種顏色。"},
+ {q:"鏡觸覺",cat:"腦科學",d:3,a:"見到別人身體被觸碰時，自己相應身體位置亦會出現類似觸覺感受。"},
+ {q:"感覺門控",cat:"腦科學",d:3,a:"神經系統會過濾重複或不重要嘅感官輸入，避免大腦被大量刺激淹沒，例如很快忽略持續背景聲。"},
+ {q:"本體覺",cat:"人體科學",d:1,a:"你唔望住手腳都大概知道佢哋位置同動作嘅感覺，主要靠肌肉、肌腱同關節內嘅感受器提供資訊。"},
+ {q:"牽涉痛",cat:"人體科學",d:2,a:"真正出問題嘅器官位置與你感覺到疼痛嘅位置不同，例如某些內臟痛可以被感覺成身體其他部位痛。"},
+ {q:"潛水反射",cat:"人體科學",d:2,a:"面部接觸冷水、尤其憋氣時，身體會降低心率並收縮部分周邊血管，以優先維持重要器官供氧。"},
+ {q:"耳石器",cat:"人體科學",d:2,a:"內耳前庭系統中感應直線加速度同頭部相對重力方向嘅器官，入面有微小晶體幫助偵測位置變化。"},
+ {q:"感覺適應",cat:"人體科學",d:1,a:"持續接受同一刺激後，感覺會逐漸變弱，例如入房初時聞到香味，過一陣就幾乎察覺唔到。"},
+ {q:"地震光",cat:"地球科學",d:3,a:"部分地震前後有人報告天空出現短暫異常光亮；現象確有觀測紀錄，但形成機制仍未完全確定。"},
+ {q:"火山雷暴",cat:"地球科學",d:2,a:"大型火山爆發時，灰粒、冰粒等猛烈碰撞並分離電荷，可以喺火山灰柱內形成閃電。"},
+ {q:"冰震",cat:"地球科學",d:2,a:"冰川、湖冰或凍結地面因快速裂開或應力釋放而產生震動，效果有時會似小型地震。"},
+ {q:"幻日",cat:"氣象學",d:1,a:"太陽兩側出現亮斑嘅大氣光學現象，通常由高空六角形冰晶折射太陽光造成。"},
+ {q:"乳房雲",cat:"氣象學",d:2,a:"雲底垂落一團團袋狀突起嘅特殊雲形，常與強對流天氣附近嘅複雜氣流有關。"},
+ {q:"夜光雲",cat:"氣象學",d:2,a:"出現在極高大氣層嘅薄雲，日落後仍被地平線以下嘅太陽照亮，因此在暮光天空中發出銀藍色亮光。"},
+ {q:"球狀閃電",cat:"氣象學",d:3,a:"一種罕見、尚未完全解釋嘅發光球狀現象，通常與雷暴有關，據報可維持比普通閃電更長時間。"},
+ {q:"海市蜃樓",cat:"大氣光學",d:1,a:"不同溫度空氣層折射率不同，令遠處物體光線彎曲，產生位置錯置、倒影或似水面般嘅幻象。"},
+ {q:"過飽和",cat:"化學",d:2,a:"溶液入面溶質含量暫時高過該溫度下正常平衡上限；受到擾動或加入晶種後可迅速結晶。"},
+ {q:"化學花園",cat:"化學",d:2,a:"某些金屬鹽放入特定溶液後，會長出似植物枝條嘅彩色無機結構，主要由沉澱、滲透壓與流動共同形成。"},
+ {q:"自催化",cat:"化學",d:2,a:"化學反應產物本身會加速同一個反應，所以反應可能愈進行愈快，形成特殊嘅速度變化。"},
+ {q:"過冷沸騰",cat:"熱力學",d:3,a:"液體局部可處於非常接近或超過沸騰條件但未形成足夠氣泡核心；一旦成核，沸騰可能突然變得猛烈。"},
+ {q:"生日悖論",cat:"數學",d:2,a:"只要房內有 23 個人，至少兩人同生日嘅機率已超過一半；直覺容易低估，因為比較嘅配對數量增長得好快。"},
+ {q:"蒙眼抽樣",cat:"統計學",d:1,a:"抽樣或分派時刻意令操作人員唔知道關鍵資訊，以減少主觀選擇影響結果；核心概念係降低偏差。"},
+ {q:"回歸平均",cat:"統計學",d:2,a:"一次極端高或低嘅測量，下一次往往自然較接近平均值；呢個現象容易被誤當成某項干預造成改善或惡化。"},
+ {q:"倖存者偏差",cat:"統計學",d:1,a:"只睇到成功留下來嘅案例，而忽略失敗或消失嘅案例，會令判斷產生系統性偏差。"}
+];
+
+const LS_KEY='9upper_science_custom_v1';
+let storageOK=true;
+function safeParse(v,fallback){try{return v?JSON.parse(v):fallback}catch(e){return fallback}}
+function storageGet(key){try{return window.localStorage.getItem(key)}catch(e){storageOK=false;return null}}
+function storageSet(key,val){try{window.localStorage.setItem(key,val);return true}catch(e){storageOK=false;return false}}
+let custom = safeParse(storageGet(LS_KEY), []);
+let queue=[], index=0, seen=0, preview=[];
+function allQuestions(){return [...BUILTIN,...custom]}
+function save(){storageSet(LS_KEY,JSON.stringify(custom)); renderCustom(); updateCount(); renderCategories(); updateStorageNotice()}
+function updateCount(){document.getElementById('bankCount').textContent=`題庫 ${allQuestions().length}`}
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1500)}
+function updateStorageNotice(){const el=document.getElementById('storageNotice'); if(!el)return; el.textContent=storageOK?'單檔 HTML・毋須安裝・自訂題庫會儲存在本機':'單檔 HTML・可正常遊玩・此開啟方式封鎖本機儲存，自訂題目只保留到關閉頁面';}
+function shuffle(arr){const a=[...arr];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+
+function renderCategories(){
+ const cats=[...new Set(allQuestions().map(x=>x.cat))].sort((a,b)=>a.localeCompare(b,'zh-Hant'));
+ const box=document.getElementById('categoryChecks');
+ const old=new Set([...box.querySelectorAll('input:checked')].map(x=>x.value));
+ box.innerHTML=cats.map(c=>`<label class="check"><input type="checkbox" value="${esc(c)}" ${old.size===0||old.has(c)?'checked':''}> ${esc(c)}</label>`).join('');
+}
+function selectedPool(){
+ const checked=[...document.querySelectorAll('#categoryChecks input:checked')].map(x=>x.value);
+ const diff=document.getElementById('difficultyFilter').value;
+ return allQuestions().filter(x=>(checked.length===0||checked.includes(x.cat))&&(diff==='all'||String(x.d)===diff));
+}
+function makePreview(){
+ const pool=selectedPool(), n=Math.min(Number(document.getElementById('amount').value),pool.length);
+ preview=shuffle(pool).slice(0,n);
+ const box=document.getElementById('previewList');
+ box.innerHTML=preview.length?preview.map((x,i)=>`<div class="bank-item"><div><strong>${i+1}. ${esc(x.q)}</strong><small>${esc(x.cat)} ・ ${'★'.repeat(x.d)}</small></div></div>`).join(''):'<div class="empty">呢個篩選暫時冇題目。</div>';
+ return preview;
+}
+function startGame(items){
+ if(!items.length){toast('冇題目可以開始');return}
+ queue=shuffle(items); index=0; seen=0; renderQuestion(); switchTab('play'); toast(`已生成 ${queue.length} 題`)
+}
+function renderQuestion(){
+ const q=queue[index];
+ const answerBox=document.getElementById('answerBox');answerBox.classList.remove('show');document.getElementById('revealBtn').textContent='👀 揭曉真相';
+ if(!q){
+   document.getElementById('questionText').textContent='完成！'; document.getElementById('answerText').textContent='';
+   document.getElementById('categoryChip').textContent='🎉';document.getElementById('difficultyChip').textContent='題組完成';document.getElementById('roundChip').textContent='';
+   document.getElementById('queueStatus').textContent='去「題庫工場」再開一局'; document.getElementById('seenStatus').textContent=`已玩 ${seen} 題`; return;
+ }
+ document.getElementById('questionText').textContent=q.q; document.getElementById('answerText').textContent=q.a;
+ document.getElementById('categoryChip').textContent=q.cat; document.getElementById('difficultyChip').textContent=`難度 ${'★'.repeat(q.d)}`;
+ document.getElementById('roundChip').textContent=`第 ${index+1} 題`;
+ document.getElementById('queueStatus').textContent=`題組剩餘 ${queue.length-index} 題`; document.getElementById('seenStatus').textContent=`已玩 ${seen} 題`;
+}
+function nextQuestion(){if(!queue.length){switchTab('factory');return} if(index<queue.length){index++;seen++;renderQuestion()}}
+function switchTab(id){document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b.dataset.tab===id));document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active',p.id===id));try{window.scrollTo({top:0,behavior:'smooth'})}catch(e){window.scrollTo(0,0)}}
+function renderCustom(){
+ const box=document.getElementById('customList');
+ box.innerHTML=custom.length?custom.map((x,i)=>`<div class="bank-item"><div><strong>${esc(x.q)}</strong><small>${esc(x.cat)} ・ ${'★'.repeat(x.d)}</small></div><button class="iconbtn" data-del="${i}">刪</button></div>`).join(''):'<div class="empty">暫時未有自訂題目。</div>';
+ box.querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>{custom.splice(Number(b.dataset.del),1);save();toast('已刪除')});
+}
+
+document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>switchTab(b.dataset.tab));
+document.getElementById('revealBtn').onclick=()=>{const box=document.getElementById('answerBox');const show=!box.classList.contains('show');box.classList.toggle('show',show);document.getElementById('revealBtn').textContent=show?'🙈 收起答案':'👀 揭曉真相'};
+document.getElementById('nextBtn').onclick=nextQuestion;
+document.getElementById('skipBtn').onclick=nextQuestion;
+document.getElementById('previewBtn').onclick=()=>{makePreview();toast('已重新抽題')};
+document.getElementById('generateBtn').onclick=()=>startGame(makePreview());
+
+document.getElementById('addBtn').onclick=()=>{
+ const q=document.getElementById('customQ').value.trim(), a=document.getElementById('customA').value.trim(), cat=document.getElementById('customCat').value.trim()||'其他科學', d=Number(document.getElementById('customDiff').value);
+ if(!q||!a){toast('請填題目同答案');return}
+ custom.push({q,a,cat,d});save();document.getElementById('customQ').value='';document.getElementById('customA').value='';toast('已加入題庫');
+};
+document.getElementById('exportBtn').onclick=()=>{
+ const blob=new Blob([JSON.stringify({name:'9UPPER科學題庫',version:1,questions:custom},null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='9upper_custom_question_bank.json';a.click();URL.revokeObjectURL(url);toast('已匯出');
+};
+document.getElementById('importBtn').onclick=()=>document.getElementById('fileInput').click();
+document.getElementById('fileInput').onchange=e=>{
+ const file=e.target.files[0];if(!file)return;const r=new FileReader();r.onload=()=>{try{const data=JSON.parse(r.result);const arr=Array.isArray(data)?data:data.questions;if(!Array.isArray(arr))throw 0;const valid=arr.filter(x=>x&&x.q&&x.a).map(x=>({q:String(x.q),a:String(x.a),cat:String(x.cat||'其他科學'),d:[1,2,3].includes(Number(x.d))?Number(x.d):2}));const existing=new Set(custom.map(x=>x.q+'\u0000'+x.a));for(const x of valid){const k=x.q+'\u0000'+x.a;if(!existing.has(k)){custom.push(x);existing.add(k)}}save();toast(`匯入完成：${valid.length} 題`)}catch{toast('JSON 格式唔啱')}};r.readAsText(file);e.target.value='';
+};
+document.getElementById('resetBtn').onclick=()=>{if(confirm('確定刪除所有自訂題目？內置題庫唔會受影響。')){custom=[];save();toast('已重設')}};
+
+updateCount();renderCategories();renderCustom();updateStorageNotice();
+startGame(shuffle(BUILTIN).slice(0,10));
+if ('serviceWorker' in navigator && location.protocol.startsWith('http')) { navigator.serviceWorker.register('./service-worker.js').catch(()=>{}); }
+</script>
+</body>
+</html>
